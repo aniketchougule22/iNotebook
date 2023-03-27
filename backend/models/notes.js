@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const notesSchema = mongoose.Schema({
+    user_id: {
+        type: mongoose.Types.ObjectId,
+        ref: "users"
+    },
+
     title: {
         type: String,
         required: [ true, "title is required" ],

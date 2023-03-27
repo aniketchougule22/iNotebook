@@ -2,11 +2,13 @@ const jwt = require('jsonwebtoken');
 
 const isValidToken = async (req, res, next) => {
 // check if authentication header exists
-  if(req.headers.authorization)
+  // if(req.headers.authorization)
+  if(req.header('token'))
   {
     try {
-    // const token = req.header('token');
-    const token = req.headers.authorization.split(" ")[1]; //get the token
+    const token = req.header('token');
+    // const token = req.headers.authorization.split(" ")[1]; //get the token
+    // console.log('token', token)
 
     if (!token) {
         return res.status(401).json({
@@ -15,8 +17,10 @@ const isValidToken = async (req, res, next) => {
           });
     } else {
         const decode = jwt.verify(token, process.env.JWT_SECRET_KEY);
-        // console.log('decode', decode)
-        req["AuthenticateUser"] = decode;
+        // console.log('decode', decode);
+        // req["AuthenticateUser"] = decode;
+        user_token = decode;
+        // console.log('req.user', req.user)
         next();
     }
         

@@ -6,7 +6,7 @@ require('./config/db');
 
 app.use(express.json());
 
-app.use('/api/auth', require('./routes/user'));
+app.use('/api/user', require('./routes/user'));
 app.use('/api/notes', require('./routes/notes'));
 
 

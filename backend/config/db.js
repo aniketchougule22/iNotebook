@@ -1,3 +1,4 @@
+// require('dotenv').config({ path: "../.env" });
 require('dotenv').config();
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);

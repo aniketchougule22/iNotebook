@@ -11,8 +11,8 @@ router.post('/create_user', async (req, res) => {
         const get = await user.findOne({ email: req.body.email });
 
         if (!get) {
-            let salt = await bcrypt.genSaltSync(10);
-            req.body.password = await bcrypt.hashSync(req.body.password, salt);
+            let salt = bcrypt.genSaltSync(10);
+            req.body.password = bcrypt.hashSync(req.body.password, salt);
             const create = await user(req.body).save();
 
             if (create._id) {
@@ -54,10 +54,12 @@ router.post('/login', async (req, res) => {
 /* get user_by_id */
 router.get('/user_by_id', auth, async (req, res) => {
     try {
-        const get = await user.findById({ _id: req.query._id }).select("-password");
+        // const get = await user.findById({ _id: req.query._id }).select("-password");
+        // let _id = req["AuthenticateUser"];
+        const get = await user.findById(user_token._id).select("-password");
 
         if (get == null) {
-            res.status(400).json({ status: false, statusCode: 400, message: 'passing wrong _id..!', data: get });
+            res.status(400).json({ status: false, statusCode: 400, message: 'something went wrong..!', data: get });
         } else {
             res.status(200).json({ status: true, statusCode: 200, message: 'Data found..!', data: get });
         }
