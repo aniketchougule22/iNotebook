@@ -1,13 +1,17 @@
 import React from "react";
 
-function Noteitem(props) {
+const Noteitem = (props) => {
   const { note } = props;
   return (
     <div className="col-md-3">
       <div className="card my-3">
         <div className="card-body">
+        <div className="d-flex align-items-center">
           <h5 className="card-title">{note.title}</h5>
-          <p className="card-text">{note.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi eaque alias ad iste blanditiis iusto odio quod eligendi debitis voluptatem illo est quibusdam natus nulla, recusandae doloremque. Asperiores, delectus accusamus.</p>
+          <i className="far fa-trash-alt mx-2"></i>
+          <i className="far fa-edit mx-2"></i>
+          </div>
+          <p className="card-text">{note.description}</p>
         </div>
       </div>
     </div>

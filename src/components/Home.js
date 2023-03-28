@@ -1,6 +1,6 @@
 import Notes from "./Notes";
 
-function Home() {
+const Home = () => {
 
   return (
     <div>
