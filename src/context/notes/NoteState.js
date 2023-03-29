@@ -2,121 +2,93 @@ import { useState } from "react";
 import NoteContext from "./noteContext";
 
 const NoteState = (props) => {
+  const host = "http://127.0.0.1:3001";
 
-    const initialNotes = [
-        {
-            "_id": "6421791c8f79b43ee58a0b049",
-            "user_id": "641ea58f726ee9dcdd714221",
-            "title": "subscription note",
-            "description": "This is subscription Note",
-            "tag": "Instagram",
-            "created_at": "2023-03-27T11:08:12.518Z",
-            "__v": 0
+  const initialNotes = []
+
+  const [notes, setNotes] = useState(initialNotes);
+
+  // Add a note
+  const addNote = async (title, description, tag) => {
+    // console.log('Adding a new Note');
+
+    const response = await fetch(`${host}/api/notes/add_notes`, {
+        method: "POST",
+        headers: {
+          'token':
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDFlZTA2OTJhY2FiZGE4NDcwYTY0NzEiLCJpYXQiOjE2ODAwNzU3MTB9.Uuw72S826s0sP9ckEV5OqCSuI3ZQ-tjAs4B5oQA6Kag",
         },
+        body: JSON.stringify({title, description, tag}),
+      });
 
-        {
-            "_id": "6421791c8f79b3ee58a50b048",
-            "user_id": "641ea58f726ee9dcdd714221",
-            "title": "my title",
-            "description": "This is subscription Note",
-            "tag": "Instagram",
-            "created_at": "2023-03-27T11:08:12.518Z",
-            "__v": 0
-        },
+    // const note = {
+    //   _id: "6421791c8f79b3ee58a08b048",
+    //   user_id: "641ea58f726ee9dcdd714221",
+    //   title: title,
+    //   description: description,
+    //   tag: tag,
+    //   created_at: "2023-03-27T11:08:12.518Z",
+    //   __v: 0,
+    // };
+    console.log('response', response);
+    setNotes(response.data);
+  };
 
-        {
-            "_id": "6421791c8f79b3ee58a0b6049",
-            "user_id": "641ea58f726ee9dcdd714221",
-            "title": "subscription note",
-            "description": "This is subscription Note",
-            "tag": "Instagram",
-            "created_at": "2023-03-27T11:08:12.518Z",
-            "__v": 0
-        },
+// Get all notes
+const getNotes = async () => {
 
-        {
-            "_id": "6421791c8f79b3ee58a0b7048",
-            "user_id": "641ea58f726ee9dcdd714221",
-            "title": "my title",
-            "description": "This is subscription Note",
-            "tag": "Instagram",
-            "created_at": "2023-03-27T11:08:12.518Z",
-            "__v": 0
-        },
-
-        {
-            "_id": "6421791c8f479b3ee58a0b049",
-            "user_id": "641ea58f726ee9dcdd714221",
-            "title": "subscription note",
-            "description": "This is subscription Note",
-            "tag": "Instagram",
-            "created_at": "2023-03-27T11:08:12.518Z",
-            "__v": 0
-        },
-
-        {
-            "_id": "6421791c8f79b3ee558a0b048",
-            "user_id": "641ea58f726ee9dcdd714221",
-            "title": "my title",
-            "description": "This is subscription Note",
-            "tag": "Instagram",
-            "created_at": "2023-03-27T11:08:12.518Z",
-            "__v": 0
-        },
-
-        {
-            "_id": "6421791c8f79b3ee58a20b049",
-            "user_id": "641ea58f726ee9dcdd714221",
-            "title": "subscription note",
-            "description": "This is subscription Note",
-            "tag": "Instagram",
-            "created_at": "2023-03-27T11:08:12.518Z",
-            "__v": 0
-        },
-
-        {
-            "_id": "6421791c8f79b3ee58a08b048",
-            "user_id": "641ea58f726ee9dcdd714221",
-            "title": "my title",
-            "description": "This is subscription Note",
-            "tag": "Instagram",
-            "created_at": "2023-03-27T11:08:12.518Z",
-            "__v": 0
+    const response = await fetch(`${host}/api/notes/get_all_notes`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            'token':
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDFlZTA2OTJhY2FiZGE4NDcwYTY0NzEiLCJpYXQiOjE2ODAwNzU3MTB9.Uuw72S826s0sP9ckEV5OqCSuI3ZQ-tjAs4B5oQA6Kag",
         }
-    ]
+        });
+        const json = await response.json();
+        console.log('json', json.data);
+    // setNotes(notes.concat(json));
+    setNotes(json.data);
+    };
 
-    const [notes, setNotes] = useState(initialNotes);
+  // Delete a note
+  const deleteNote = (id) => {
+    console.log("Deleting a note with this id: " + id);
+    const newNotes = notes.filter((note) => {
+      return note._id !== id;
+    });
+    setNotes(newNotes);
+  };
 
-    // Add a note
-    const addNote = (title, description, tag) => {
-        // console.log('Adding a new Note');
-        const note = {
-            "_id": "6421791c8f79b3ee58a08b048",
-            "user_id": "641ea58f726ee9dcdd714221",
-            "title": title,
-            "description": description,
-            "tag": tag,
-            "created_at": "2023-03-27T11:08:12.518Z",
-            "__v": 0
-        }
-        setNotes(notes.concat(note));
+  // Edit a note
+  const editNote = async (id, title, description, tag) => {
+    
+    const response = await fetch(`${host}/api/notes/update_note/${id}`, {
+      method: "POST",
+      headers: {
+        'token':
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDFlZTA2OTJhY2FiZGE4NDcwYTY0NzEiLCJpYXQiOjE2ODAwNzU3MTB9.Uuw72S826s0sP9ckEV5OqCSuI3ZQ-tjAs4B5oQA6Kag",
+      },
+      body: JSON.stringify({title, description, tag}),
+    });
+
+    const json = response.json();
+    console.log('json', json)
+    for (let i = 0; i < notes.length; i++) {
+      const element = notes[i];
+      if (element._id === id) {
+        element.title = title;
+        element.description = description;
+        element.tag = tag;
+      }
     }
+  };
 
-    // Delete a note
-    const deleteNote = () => {
-        
-    }
-
-    // Edit a note
-    const editNote = () => {
-        
-    }
-
-    return (
-        <NoteContext.Provider value={{notes, addNote, deleteNote, editNote}}>
-            {props.children}
-        </NoteContext.Provider>
-    )
-}
+  return (
+    <NoteContext.Provider value={{ notes, addNote, getNotes, deleteNote, editNote }}>
+      {props.children}
+    </NoteContext.Provider>
+  );
+};
 
 export default NoteState;

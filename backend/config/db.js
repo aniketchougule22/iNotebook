@@ -3,8 +3,14 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
 
-mongoose.connect(process.env.MONGO_URL, {
-    dbName: process.env.DB_NAME,
+// mongoose.connect(process.env.MONGO_URL, {
+//     dbName: process.env.DB_NAME,
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+// });
+
+mongoose.connect('mongodb://localhost:27017', {
+    dbName: 'iNotebook',
     useNewUrlParser: true,
     useUnifiedTopology: true
 });

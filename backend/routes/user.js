@@ -5,6 +5,8 @@ const jwt = require('jsonwebtoken');
 const user = require('../models/user');
 const auth = require('../middlewares/auth').isValidToken;
 
+const jwt_key = 'aniketchougule';
+
 /* create user */
 router.post('/create_user', async (req, res) => {
     try {
@@ -16,7 +18,7 @@ router.post('/create_user', async (req, res) => {
             const create = await user(req.body).save();
 
             if (create._id) {
-                let token = jwt.sign({_id : create._id}, process.env.JWT_SECRET_KEY);
+                let token = jwt.sign({_id : create._id}, jwt_key);
                 res.status(200).json({ status: true, statusCode: 200, message: 'User inserted successfully..!', data: create, token: token });
             } else {
                 res.status(400).json({ status: false, statusCode: 400, message: 'something went wrong..!', data: create });
@@ -42,7 +44,7 @@ router.post('/login', async (req, res) => {
             if (!passCompare) {
                 res.status(400).json({ status: false, statusCode: 400, message: 'Invalid password..!' });
             } else {
-                let token = jwt.sign({_id : get._id}, process.env.JWT_SECRET_KEY);
+                let token = jwt.sign({_id : get._id}, jwt_key);
                 res.status(200).json({ status: true, statusCode: 200, message: 'Verify successfully..!', token: token });
             }
         }
