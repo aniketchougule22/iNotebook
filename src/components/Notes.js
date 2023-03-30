@@ -23,7 +23,6 @@ const Notes = () => {
   const refClose = useRef(null);
 
   const handleEditClick = (e) => {
-    console.log('updating the note', note);
     editNote(note.id, note.edittitle, note.editdescription, note.edittag);
     refClose.current.click();
   };

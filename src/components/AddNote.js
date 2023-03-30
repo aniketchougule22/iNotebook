@@ -10,6 +10,7 @@ const AddNote = () => {
     const handleAddNoteClick = (e) => {
         e.preventDefault();
         addNote(note.title, note.description, note.tag);
+        setNote({title: "", description: "", tag: ""});
     }
 
     const onChange = (e) => {
@@ -29,6 +30,7 @@ const AddNote = () => {
             name="title"
             className="form-control"
             id="title"
+            value={note.title}
             aria-describedby="emailHelp"
             onChange={onChange}
             minLength={5}
@@ -44,6 +46,7 @@ const AddNote = () => {
             name="description"
             className="form-control"
             id="description"
+            value={note.description}
             onChange={onChange}
             minLength={5}
             required
@@ -58,6 +61,7 @@ const AddNote = () => {
             name="tag"
             className="form-control"
             id="tag"
+            value={note.tag}
             onChange={onChange}
           />
         </div>
