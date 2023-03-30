@@ -5,8 +5,9 @@ const user = require('../models/user');
 const auth = require('../middlewares/auth').isValidToken;
 
 /* add new note */
-router.post('/add_notes', async (req, res) => {
+router.post('/add_notes', auth, async (req, res) => {
     try {
+        req.body.user_id = user_token._id;
         const create = await notes(req.body).save();
         if (create._id) {
             res.status(200).json({ status: true, statusCode: 200, message: 'Note inserted successfully..!', data: create });
