@@ -7,6 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   /* background-color: rgba(50, 115, 220, 0.3); */
   background-color: rgba(158, 186, 232, 0.3);
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 code {
