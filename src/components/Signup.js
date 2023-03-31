@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const Signup = (props) => {
     const host = "http://localhost:3001";
 
-    const [ body, setBody ] = useState({name: "", email: "", password: "", cpassword: ""});
+    const [ body, setBody ] = useState({name: "", email: "", password: ""});
 
       let navigate = useNavigate();
     
@@ -20,7 +20,6 @@ const Signup = (props) => {
         });
     
         const json = await response.json();
-        console.log("loginJson", json);
        
         if (json.status === true) {
             // save the token & redirect
@@ -38,7 +37,7 @@ const Signup = (props) => {
 
   return (
     <div className="mx-auto col-10 col-md-8 col-lg-6">
-    <h2>Signup</h2><hr/>
+    <h2>Create an account to use <strong>iNotebook</strong></h2><hr/>
       <form onSubmit={handleSubmitClick}>
         <div className="mb-3">
           <label htmlFor="name" className="form-label">
@@ -78,20 +77,6 @@ const Signup = (props) => {
             className="form-control"
             id="password"
             name="password"
-            onChange={onChange}
-            minLength={5}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="cpassword" className="form-label">
-            Confirm Password
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="cpassword"
-            name="cpassword"
             onChange={onChange}
             minLength={5}
             required
