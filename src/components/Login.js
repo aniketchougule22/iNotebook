@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-// import { useHistory } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const host = "http://localhost:3001";
 
   const [ body, setBody ] = useState({email: "", password: ""});
-//   let history = useHistory();
   let navigate = useNavigate();
 
   const handleSubmitClick = async (e) => {
@@ -25,7 +23,6 @@ const Login = () => {
     if (json.status === true) {
         // save the token & redirect
         localStorage.setItem('token', json.token);
-        // history.push("/");
         navigate.push("/");
     } else {
         alert("Invalid Email OR Password..!")
@@ -37,7 +34,8 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="container">
+    <h2>Login</h2>
       <form onSubmit={handleSubmitClick}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">
