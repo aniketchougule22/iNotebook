@@ -1,4 +1,11 @@
-# Getting Started with Create React App
+# iNotebook
+
+Store all notes and important information digitally, usually in a
+cloud-based storage system.
+It makes note-taking convenient and accessible, and allows you to
+write and study flexibly.
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
