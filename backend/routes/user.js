@@ -71,9 +71,6 @@ router.get('/user_by_id', auth, async (req, res) => {
 });
 
 
-
-
-
 /* get all users */
 // router.get('/', async (req, res) => {
 //     try {
